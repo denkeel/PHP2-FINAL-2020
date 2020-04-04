@@ -17,6 +17,7 @@ use App\services\TSingleton;
  * @property TwigRenderer renderer
  * @property Request request
  * @property BasketService basketService
+ * @property Auth auth
  */
 class App
 {

@@ -27,6 +27,9 @@ return [
         ],
         'basketService' => [
             'class' => \App\services\BasketService::class
+        ],
+        'auth' => [
+            'class' => \App\services\Auth::class
         ]
     ]
 ];
