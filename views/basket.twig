@@ -1,0 +1,13 @@
+{% extends 'main.twig' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    {% for good in goods %}
+        <p>{{ good.name }}</p>
+        <p>Цена: {{ good.price }}</p>
+        <p>Количество: {{ good.count }}</p>
+    {% else %}
+        Нет товаров
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'main.twig' %}
+
+
+{% block title %}{{ good.name }}{% endblock %}
+
+{% block content %}
+    <p style="color: red">{{ msg }}</p>
+    <h2>{{ good.name }}</h2>
+    <p>Информация: {{ good.info }}</p>
+
+    <a href="/good/update/?id={{ good.id }}">Редактировать</a>
+    <a href="/basket/add/?id={{ good.id }}">Добавить в корзину</a>
+{% endblock %}
