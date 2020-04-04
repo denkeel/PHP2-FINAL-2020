@@ -34,11 +34,6 @@ abstract class Controller
         return '404';
     }
 
-    public function indexAction()
-    {
-        return $this->render($this->app->request->getControllerName());
-    }
-
     protected function getId()
     {
         return (int)$this->request->get('id');
@@ -46,6 +41,18 @@ abstract class Controller
 
     protected function render($template, $params = [])
     {
+        $session = $this->app->request->getSession();
+
+        if (array_key_exists('user', $session)) {
+            $params['auth'] = [
+                'logged_in' => true,
+                'user' => $session['user']
+            ];
+        } else {
+            $params['auth'] = ['logged_in' => false];
+        }
+        //var_dump($params);
+
         return $this->renderer->render($template, $params);
     }
 
