@@ -7,8 +7,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
+        {% if auth.logged_in == false %}
+            <a href="/user/login">Login</a> | <a href="/user/signup">Sign up</a>
+        {% else %}
+            {{ auth.user }} | <a href="/user/logout">Выйти</a>
+        {% endif %}
     <ul>
-        <li class="main"><a href="/">Главная</a></li>
         <hr>
         <li class="main"><a href="/">Главная</a></li>
         <li><a href="/good/all">Товары</a></li>
