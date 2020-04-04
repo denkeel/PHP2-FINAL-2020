@@ -20,7 +20,12 @@ class UserController extends Controller
         if ($this->app->auth->auth($login, $pass, $this->app)) {
             $this->redirectApp('/');
         } else {
-        $this->redirectApp('');
+            $this->redirectApp('');
         }
+    }
+    
+    public function logoutAction() {
+        unset($_SESSION['user']);
+        $this->redirectApp('/');
     }
 }

@@ -16,10 +16,8 @@ class Auth
 
         if (password_verify($pass, $user['password'])) {
             $app->request->setSession('user', $login);
-            //var_dump($login);
             return true;
         } else {
-            //var_dump('asdf');
             $app->request->addMsg('Неверный пароль');
             return false;
         }
