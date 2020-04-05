@@ -2,7 +2,6 @@
 namespace App\services;
 
 use App\main\App;
-use PDOException;
 
 class Auth
 {
@@ -13,7 +12,7 @@ class Auth
             $app->request->addMsg('Пользователь не найден');
             return false;
         }
-
+        
         if (password_verify($pass, $user['password'])) {
             $app->request->setSession('user', $login);
             return true;
@@ -21,6 +20,22 @@ class Auth
             $app->request->addMsg('Неверный пароль');
             return false;
         }
+    }
+    
+    public function signup($login, $pass, App $app) {
+        $user = $app->db->userRepository->getUser($login);
+        if ($user !== false) {
+            $app->request->addMsg('Такой пользователь уже существует');
+            return false;
+        }
 
+        $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+        if ($app->db->userRepository->insertUser($login, $pass_hash)) {
+            $app->request->addMsg("$login, регистрация прошла успешно!");
+            return true;
+        } else {            
+            $app->request->addMsg('Ошибка базы данных. Обратитесь в поддержку');
+            return false;
+        }
     }
 }

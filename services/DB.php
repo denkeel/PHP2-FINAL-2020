@@ -28,8 +28,8 @@ class DB
             $this->connection = new \PDO(
                 $this->getDsn(),
                 $this->config['username'],
-                $this->config['password'], 
-                [ \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION ]
+                $this->config['password']//, 
+                //[ \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION ]
             );
 
             $this->connection->setAttribute(
@@ -90,7 +90,13 @@ class DB
 
     public function execute(string $sql, array $params = [])
     {
-        $this->query($sql, $params);
+        return $this->query($sql, $params);
+    }
+
+    public function executeQueryBool(string $sql, array $params = [])
+    {
+        $PDOStatement = $this->getConnection()->prepare($sql);
+        return $PDOStatement->execute($params);
     }
 
     public function lastInsertId()

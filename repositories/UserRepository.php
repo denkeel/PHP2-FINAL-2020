@@ -26,4 +26,9 @@ class UserRepository extends Repository
 	    ";
         return $this->db->find($sql, [':login' => $login]);
     }
+
+    public function insertUser($login, $pass) {
+        $sql = "INSERT INTO `users` (`login`, `password`) VALUES (:_login, :pass)";
+        return $this->db->executeQueryBool($sql, [':_login' => $login, ':pass' => $pass]);
+    }
 }
