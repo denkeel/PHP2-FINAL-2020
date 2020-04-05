@@ -110,6 +110,11 @@ class Request
         $_SESSION[$key] = $value;
     }
 
+    public function unsetSession($key)
+    {
+        unset($_SESSION[$key]);
+    }
+    
     public function redirect($path = '')
     {
         if (empty($path)) {
