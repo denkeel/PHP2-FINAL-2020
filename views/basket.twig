@@ -3,11 +3,45 @@
 {% block title %}Корзина{% endblock %}
 
 {% block content %}
-    {% for good in goods %}
-        <p>{{ good.name }}</p>
+    <p class="msg" style="color: red"></p>
+    {% for id, good in goods %}
+    <div>
+        <h3>{{ good.name }}</h3>
         <p>Цена: {{ good.price }}</p>
         <p>Количество: {{ good.count }}</p>
+        <a class="button" href="#" data-id="{{id}}" style="color: red">Удалить</a>
+    </div>
     {% else %}
         Нет товаров
     {% endfor %}
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        buttons = document.getElementsByClassName('button');
+        msg = document.getElementsByClassName('msg')[0];
+        for (let button of buttons) {
+            button.addEventListener("click", function(e) {
+                removeAjax(button.dataset.id, msg, button);
+            });
+        }
+    });
+
+    function removeAjax(id, msg, button) {
+                data = "";
+                jQuery.ajax({
+                    url: "/basket/removeAjax/?id=" + id,
+                    success: function (data) {
+                        msg.textContent = data[1];
+                        button.parentNode.remove();
+                        setTimeout(removeMsg, 1000, msg);
+                    }
+                });
+    }
+
+    function removeMsg(msg) {
+        msg.textContent = '';
+    }
+</script>
 {% endblock %}

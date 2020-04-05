@@ -21,6 +21,7 @@
 
     {% block content %}{% endblock %}
 
+    {% block script %}
     <script>
         function testAjax() {
             jQuery.ajax({
@@ -31,5 +32,6 @@
             });
         }
     </script>
+    {% endblock %}
 </body>
 </html>

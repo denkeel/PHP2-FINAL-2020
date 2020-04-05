@@ -23,4 +23,14 @@ class BasketController extends  Controller
         $this->request->addMsg($msg);
         $this->redirectApp();
     }
+    
+    public function removeAjaxAction()
+    {
+        $id = $this->getId();
+        $msg = $this->app->basketService->remove($id, $this->app);
+        $data = [$id, $msg];
+        
+        header('Content-Type: application/json');
+        return json_encode($data);
+    }
 }

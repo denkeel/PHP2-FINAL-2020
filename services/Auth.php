@@ -31,6 +31,7 @@ class Auth
 
         $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
         if ($app->db->userRepository->insertUser($login, $pass_hash)) {
+            $app->request->setSession('user', $login);
             $app->request->addMsg("$login, регистрация прошла успешно!");
             return true;
         } else {            

@@ -45,6 +45,18 @@ class BasketService
         return 'Товар успешно добавлен';
     }
 
+    public function remove($id, App $app) {
+        if (empty($id)) {
+            return 'Не передан id товара';
+        }
+
+        $goods = $app->request->getSession(Controller::SESSION_NAME_GOODS);
+        //unset($goods[$id]);
+        $app->request->setSession(Controller::SESSION_NAME_GOODS, $goods);
+
+        return 'Товар удален';
+    }
+
     public function getCurrency($price)
     {
         return 35 * $price;
