@@ -3,7 +3,7 @@
 {% block title %}Корзина{% endblock %}
 
 {% block content %}
-    <p class="msg" style="color: red"></p>
+    <p class="msg" style="color: red">{{ msg }}</p>
     {% for id, good in goods %}
     <div>
         <h3>{{ good.name }}</h3>
@@ -11,9 +11,13 @@
         <p>Количество: {{ good.count }}</p>
         <a class="button" href="#" data-id="{{id}}" style="color: red">Удалить</a>
     </div>
+    {% endfor %}
+    {% if goods %}
+        <hr>
+        <div><a href="/basket/order">Оформить заказ</a></div>
     {% else %}
         Нет товаров
-    {% endfor %}
+    {% endif %}
 {% endblock %}
 
 {% block script %}

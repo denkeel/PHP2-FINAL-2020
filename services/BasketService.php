@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\services;
 
 use App\controllers\Controller;
@@ -24,41 +23,51 @@ class BasketService
         }
 
         $good = $app->db->goodRepository->getOne($id);
-
+        
         if (empty($good)) {
             return 'Товар не найден';
         }
-
+        
         $goods = $app->request->getSession(Controller::SESSION_NAME_GOODS);
         if (is_array($goods) && array_key_exists($id, $goods)) {
             $goods[$id]['count']++;
         } else {
             $goods[$id] = [
+                'id' => $good->getId(),
                 'name' => $good->getName(),
                 'price' => $good->getPrice(),
                 'count' => 1,
             ];
         }
-
+        
         $app->request->setSession(Controller::SESSION_NAME_GOODS, $goods);
-
+        
         return 'Товар успешно добавлен';
     }
-
+    
     public function remove($id, App $app) {
         if (empty($id)) {
             return 'Не передан id товара';
         }
-
+        
         $goods = $app->request->getSession(Controller::SESSION_NAME_GOODS);
-        //unset($goods[$id]);
+        unset($goods[$id]);
         $app->request->setSession(Controller::SESSION_NAME_GOODS, $goods);
-
+        
         return 'Товар удален';
     }
-
+    
     public function getCurrency($price)
     {
         return 35 * $price;
+    }
+    
+    public function saveOrder(App $app) {
+        
+        $user_id = $app->request->getSession('user_id');
+        $order_id = $app->db->orderRepository->createOrder($user_id);
+
+        $basket = $app->request->getSession('good');
+        return $app->db->orderRepository->fillOrder($order_id, $basket);
     }
 }

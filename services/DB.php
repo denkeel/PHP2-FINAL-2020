@@ -28,8 +28,8 @@ class DB
             $this->connection = new \PDO(
                 $this->getDsn(),
                 $this->config['username'],
-                $this->config['password']//, 
-                //[ \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION ]
+                $this->config['password'], 
+                [ \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION ]
             );
 
             $this->connection->setAttribute(

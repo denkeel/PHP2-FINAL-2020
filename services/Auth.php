@@ -15,6 +15,7 @@ class Auth
         
         if (password_verify($pass, $user['password'])) {
             $app->request->setSession('user', $login);
+            $app->request->setSession('user_id', $user['id']);
             return true;
         } else {
             $app->request->addMsg('Неверный пароль');
