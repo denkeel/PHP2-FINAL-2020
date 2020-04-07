@@ -29,6 +29,7 @@ class GoodController extends Controller
     public function allAction()
     {
         $goods = $this->app->db->goodRepository->getAll();
+        //var_dump($goods);
         return $this->render(
             'goods',
             [

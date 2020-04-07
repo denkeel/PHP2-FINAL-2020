@@ -2,7 +2,7 @@
 
 namespace App\controllers;
 
-class BasketController extends  Controller
+class BasketController extends Controller
 {
     public function indexAction()
     {
@@ -31,15 +31,5 @@ class BasketController extends  Controller
         
         header('Content-Type: application/json');
         return json_encode($data);
-    }
-    
-    public function orderAction() {
-        if ($this->app->basketService->saveOrder($this->app)) {
-            $this->request->setSession('good', []);
-            $this->request->addMsg('Ваш заказ сохранен.');
-        } else {
-            $this->request->addMsg('Произошла ошибка с базой данных. Обратитесь в поддерджку');
-        }
-        $this->redirectApp();
     }
 }

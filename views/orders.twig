@@ -1,0 +1,13 @@
+{% extends 'main.twig' %}
+
+{% block title %}Мои заказы{% endblock %}
+
+{% block content %}
+    <h2>{{title}}</h2>
+    <hr>
+    {% for order in orders %}
+        <div><a href="/order/show/?id={{order.order_id}}">Заказ {{order.date}}</a></div>
+    {% else %}
+        Нет заказов
+    {% endfor %}
+{% endblock %}
