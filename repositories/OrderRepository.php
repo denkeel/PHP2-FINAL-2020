@@ -15,21 +15,27 @@ class OrderRepository extends Repository
     }
 
     public function getAllOrders() {
-        $sql = "SELECT * FROM `orders`";
+        $sql = "SELECT order_id, `user_id`, date, (SELECT login FROM `users` WHERE id = `user_id`) `login` FROM `orders`";
+
         return $this->db->findAll($sql);
-        
     }
 
     public function getAllUserOrders($id) {
         $sql = "SELECT * FROM `orders` WHERE user_id = :id";
+
         return $this->db->findAll($sql, [':id' => $id]);
-        
     }
 
     public function getOrder($order_id) {
         $sql = "SELECT good_id, qty FROM `orders_goods` WHERE order_id = :order_id";
 
         return $this->db->findAll($sql, [':order_id' => $order_id]);
+    }
+
+    public function getUserIdByOrder($order_id) {
+        $sql = "SELECT user_id FROM `orders` WHERE order_id = :order_id";
+
+        return $this->db->find($sql, [':order_id' => $order_id])['user_id'];
     }
 
     public function getOrderDate($order_id) {

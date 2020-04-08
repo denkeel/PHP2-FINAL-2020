@@ -42,11 +42,13 @@ abstract class Controller
     protected function render($template, $params = [])
     {
         $session = $this->app->request->getSession();
+        //var_dump($session);
 
         if (array_key_exists('user', $session)) {
             $params['auth'] = [
                 'logged_in' => true,
-                'user' => $session['user']
+                'user' => $session['user'],
+                'is_admin' => $session['is_admin'],
             ];
         } else {
             $params['auth'] = ['logged_in' => false];

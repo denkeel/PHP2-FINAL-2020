@@ -10,7 +10,12 @@
         {% if auth.logged_in == false %}
             <a href="/user/login">Login</a> | <a href="/user/signup">Sign up</a>
         {% else %}
-            {{ auth.user }} | <a href="/order">Мои заказы</a> | <a href="/user/logout">Выйти</a>
+            {{ auth.user }} | 
+            <a href="/order">Мои заказы</a> |
+            {% if auth.is_admin == true %}
+                <a href="/admin">Админ</a> | 
+            {% endif %}
+            <a href="/user/logout">Выйти</a>
         {% endif %}
     <ul>
         <hr>

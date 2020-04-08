@@ -16,6 +16,7 @@ class Auth
         if (password_verify($pass, $user['password'])) {
             $app->request->setSession('user', $login);
             $app->request->setSession('user_id', $user['id']);
+            $app->request->setSession('is_admin', $user['is_admin'] ? true : false);
             return true;
         } else {
             $app->request->addMsg('Неверный пароль');
@@ -32,7 +33,7 @@ class Auth
 
         $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
         if ($app->db->userRepository->insertUser($login, $pass_hash)) {
-            $app->request->setSession('user', $login);
+            $this->auth($login, $pass, $app);
             $app->request->addMsg("$login, регистрация прошла успешно!");
             return true;
         } else {            
