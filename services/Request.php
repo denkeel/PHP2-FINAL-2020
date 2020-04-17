@@ -66,6 +66,21 @@ class Request
         return $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 
+    public function post($name = '')
+    {
+        if ($this->isPost()) {
+            if (empty($name)) {
+                return $this->params['post'];
+            }
+
+            if (empty($this->params['post'][$name])) {
+                return [];
+            }
+
+            return $this->params['post'][$name];
+        }
+    }
+
     public function get($name = '')
     {
         if (empty($name)) {
@@ -79,7 +94,7 @@ class Request
         return $this->params['get'][$name];
     }
 
-    public function getSession($key)
+    public function getSession($key = '')
     {
         if (empty($key)) {
             return $_SESSION;
@@ -95,6 +110,11 @@ class Request
         $_SESSION[$key] = $value;
     }
 
+    public function unsetSession($key)
+    {
+        unset($_SESSION[$key]);
+    }
+    
     public function redirect($path = '')
     {
         if (empty($path)) {
@@ -118,6 +138,4 @@ class Request
 
         return $msg;
     }
-
-
 }

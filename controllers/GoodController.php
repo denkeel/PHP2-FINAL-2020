@@ -2,16 +2,13 @@
 namespace App\controllers;
 
 use App\entities\Good;
-use App\main\App;
-use App\repositories\GoodRepository;
-use App\services\renders\IRenderer;
-use App\services\Request;
 
 class GoodController extends Controller
 {
 
     public function indexAction()
     {
+        //var_dump($_SESSION);
         return $this->render('home');
     }
 
@@ -32,11 +29,13 @@ class GoodController extends Controller
     public function allAction()
     {
         $goods = $this->app->db->goodRepository->getAll();
+        //var_dump($goods);
         return $this->render(
             'goods',
             [
                 'goods' => $goods,
                 'title' => 'Католог товаров',
+                'msg' => $this->request->getMsg()
             ]
         );
     }

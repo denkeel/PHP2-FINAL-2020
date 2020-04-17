@@ -1,0 +1,10 @@
+{% extends 'main.twig' %}
+
+{% block content %}
+    <p style="color: red">{{ msg }}</p>
+    <form method="post" action="/user/auth">
+        <input name="login" type="text" placeholder="login">
+        <input name="password" type="text" placeholder="password">
+        <input type="submit">
+    </form>
+{% endblock %}

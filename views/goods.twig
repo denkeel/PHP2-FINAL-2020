@@ -4,10 +4,11 @@
 
 {% block content %}
     <h2>{{title}}</h2>
-    <a href="/good/add">Добавить товар</a>
-
+    <a href="/good/add">Создать товар</a>
+    <hr>
+    <p style="color: red">{{ msg }}</p>
     {% for good in goods %}
-        <p>Название товара {{ good.getName }}</p>
+        <p>{{ good.getName }} <a href="/basket/add/?id={{ good.id }}" title="Добавить товар">+</a></p>
         <a href="/good/one/?id={{good.getId}}">Подробнее</a>
     {% else %}
         Нет товаров

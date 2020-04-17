@@ -1,0 +1,11 @@
+{% extends 'main.twig' %}
+
+{% block content %}
+    <h1>Регистрация</h1>
+    <p style="color: red">{{ msg }}</p>
+    <form method="post" action="/user/signup">
+        <input name="login" type="text" placeholder="login">
+        <input name="password" type="text" placeholder="password">
+        <input type="submit">
+    </form>
+{% endblock %}

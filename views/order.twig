@@ -1,0 +1,16 @@
+{% extends 'main.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+    <h2>{{title}} {{date}}</h2>
+    <hr>
+    {% for good in order %}
+    <div>
+        <h3>{{ good.name }}</h3>
+        <p>Информация: {{ good.info }}</p>
+        <p>Цена: {{ good.price }}</p>
+        <p>Количество: {{ good.qty }}</p>
+    </div>
+    {% endfor %}
+{% endblock %}

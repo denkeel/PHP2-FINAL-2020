@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\controllers;
 
-
-class BasketController extends  Controller
+class BasketController extends Controller
 {
     public function indexAction()
     {
@@ -12,6 +10,7 @@ class BasketController extends  Controller
             'basket',
             [
                 'goods' => $this->app->basketService->getBasket($this->app),
+                'msg' => $this->request->getMsg()
             ]
         );
     }
@@ -22,5 +21,15 @@ class BasketController extends  Controller
         $msg = $this->app->basketService->add($id, $this->app);
         $this->request->addMsg($msg);
         $this->redirectApp();
+    }
+    
+    public function removeAjaxAction()
+    {
+        $id = $this->getId();
+        $msg = $this->app->basketService->remove($id, $this->app);
+        $data = [$id, $msg];
+        
+        header('Content-Type: application/json');
+        return json_encode($data);
     }
 }
